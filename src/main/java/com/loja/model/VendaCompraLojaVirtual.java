@@ -26,56 +26,56 @@ import javax.persistence.TemporalType;
 public class VendaCompraLojaVirtual implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_cp_loja_virt")
 	private Long id;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
 
 	@ManyToOne
-	@JoinColumn(name = "endereco_entrega_id", nullable = false, 
+	@JoinColumn(name = "endereco_entrega_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "endereco_entrega_fk"))
 	private Endereco enderecoEntrega;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "endereco_cobranca_id", nullable = false, 
+	@JoinColumn(name = "endereco_cobranca_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "endereco_cobranca_fk"))
 	private Endereco enderecoCobranca;
-	
+
 	@Column(nullable = false)
 	private BigDecimal valorTotal;
-	
+
 	private BigDecimal valorDesconto;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "forma_pagamento_id", nullable = false, 
+	@JoinColumn(name = "forma_pagamento_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "forma_pagamento_fk"))
 	private FormaPagamento formaPagamento;
-	
+
 	@OneToOne
-	@JoinColumn(name = "nota_fiscal_venda_id", nullable = false, 
+	@JoinColumn(name = "nota_fiscal_venda_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_fiscal_venda_fk"))
 	private NotaFiscalVenda notaFiscalVenda;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "cupom_desc_id", 
+	@JoinColumn(name = "cupom_desc_id",
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cupom_desc_id_fk"))
 	private CupDesconto cupDesconto;
-	
+
 	@Column(nullable = false)
 	private BigDecimal valorFrete;
-	
+
 	@Column(nullable = false)
 	private Integer diasEntrega;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataVneda;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
@@ -193,12 +193,10 @@ public class VendaCompraLojaVirtual implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		VendaCompraLojaVirtual other = (VendaCompraLojaVirtual) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 }

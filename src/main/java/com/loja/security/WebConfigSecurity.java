@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter implements HttpSessionListener {
-	
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
       web.ignoring()

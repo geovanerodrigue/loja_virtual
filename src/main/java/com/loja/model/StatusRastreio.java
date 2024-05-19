@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,21 +20,21 @@ import javax.persistence.Table;
 public class StatusRastreio implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_status_rastreio")
 	private Long id;
-	
+
 	private String centroDistribuicao;
-	
+
 	private String cidade;
-	
+
 	private String estado;
-	
+
 	private String status;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "venda_compra_loja_virt_id", nullable = false, 
+	@JoinColumn(name = "venda_compra_loja_virt_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compra_loja_virt_fk"))
 	private VendaCompraLojaVirtual vendaCompraLojaVirtual;
 
@@ -96,12 +95,10 @@ public class StatusRastreio implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		StatusRastreio other = (StatusRastreio) obj;
 		return Objects.equals(id, other.id);
-	}	
+	}
 
 }

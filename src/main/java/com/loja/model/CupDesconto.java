@@ -21,18 +21,18 @@ import javax.persistence.TemporalType;
 public class CupDesconto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_cup_desc")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String codDesc;
-	
+
 	private BigDecimal valorRealDesc;
-	
+
 	private BigDecimal valorPorcentDesc;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataValidadeCupom;
@@ -86,9 +86,7 @@ public class CupDesconto implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		CupDesconto other = (CupDesconto) obj;
 		return Objects.equals(id, other.id);

@@ -22,7 +22,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.loja.enums.StatusContaPagar;
-import com.loja.enums.StatusContaReceber;
 
 @Entity
 @Table(name = "conta_pagar")
@@ -34,31 +33,31 @@ public class ContaPagar implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_pagar")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String descricao;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusContaPagar status;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dtVencimento;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dtPagamento;
-	
+
 	@Column(nullable = false)
 	private BigDecimal valorTotal;
-	
+
 	private BigDecimal valorDesconto;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey
 	= @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_forn_id", nullable = false, foreignKey
 	= @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_forn_fk"))
@@ -71,7 +70,7 @@ public class ContaPagar implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -145,9 +144,7 @@ public class ContaPagar implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		ContaPagar other = (ContaPagar) obj;
 		return Objects.equals(id, other.id);

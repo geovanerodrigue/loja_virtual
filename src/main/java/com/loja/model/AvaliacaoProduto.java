@@ -21,21 +21,21 @@ import javax.persistence.Table;
 public class AvaliacaoProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_avaliacao_produto")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private Integer nota;
-	
+
 	@Column(nullable = false)
 	private String descricao;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "produto_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
@@ -90,9 +90,7 @@ public class AvaliacaoProduto implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		AvaliacaoProduto other = (AvaliacaoProduto) obj;
 		return Objects.equals(id, other.id);

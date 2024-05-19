@@ -25,35 +25,35 @@ import javax.persistence.TemporalType;
 public class NotaFiscalCompra implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal_compra")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String numeroNota;
-	
+
 	@Column(nullable = false)
 	private String serieNota;
-	
+
 	private String descricaoObs;
-	
+
 	@Column(nullable = false)
 	private BigDecimal valorTtotal;
-	
+
 	private BigDecimal valorDesconto;
-	
+
 	@Column(nullable = false)
 	private BigDecimal valorIcms;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataCompra;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
-	
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "conta_pagar_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "conta_pagar_fk"))
 	private ContaPagar contaPagar;
@@ -147,12 +147,10 @@ public class NotaFiscalCompra implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		NotaFiscalCompra other = (NotaFiscalCompra) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 }

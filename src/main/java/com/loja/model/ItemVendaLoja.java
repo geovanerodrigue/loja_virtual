@@ -21,19 +21,19 @@ import javax.persistence.Table;
 public class ItemVendaLoja implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item_venda_loja")
 	private Long id;
 
 	@Column(nullable = false)
 	private Double quantidade;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "produto_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
 	private Produto produto;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "venda_compra_loja_virtu_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compra_loja_virtu_fk"))
@@ -80,12 +80,10 @@ public class ItemVendaLoja implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		ItemVendaLoja other = (ItemVendaLoja) obj;
 		return Objects.equals(id, other.id);
-	}	
-	
+	}
+
 }

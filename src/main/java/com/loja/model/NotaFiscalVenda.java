@@ -21,31 +21,31 @@ import javax.persistence.Table;
 public class NotaFiscalVenda implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal_venda")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String numero;
-	
+
 	@Column(nullable = false)
 	private String serie;
-	
+
 	@Column(nullable = false)
 	private String tipo;
-	
+
 	@Column(columnDefinition = "text", nullable = false)
 	private String xml;
-	
+
 	@Column(columnDefinition = "text", nullable = false)
 	private String pdf;
-	
+
 	@OneToOne
-	@JoinColumn(name = "venda_compra_loja_virt_id", nullable = false, 
+	@JoinColumn(name = "venda_compra_loja_virt_id", nullable = false,
 	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compra_loja_virt_fk"))
 	private VendaCompraLojaVirtual vendaCompraLojaVirtual;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -111,12 +111,10 @@ public class NotaFiscalVenda implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		NotaFiscalVenda other = (NotaFiscalVenda) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 }

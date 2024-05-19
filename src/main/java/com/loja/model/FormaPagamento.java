@@ -17,12 +17,12 @@ import javax.persistence.Table;
 public class FormaPagamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_receber")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String descricao;
 
@@ -51,9 +51,7 @@ public class FormaPagamento implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		FormaPagamento other = (FormaPagamento) obj;
 		return Objects.equals(id, other.id);

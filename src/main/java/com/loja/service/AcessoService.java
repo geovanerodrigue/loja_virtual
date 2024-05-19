@@ -8,14 +8,14 @@ import com.loja.repository.AcessoRepository;
 
 @Service
 public class AcessoService {
-	
+
 	@Autowired
 	private AcessoRepository acessoRepository;
-	
+
 	public Acesso save(Acesso acesso) {
 		return acessoRepository.save(acesso);
 	}
-	
-	
+
+
 
 }

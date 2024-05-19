@@ -33,32 +33,32 @@ public class ContaReceber implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_receber")
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String descricao;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusContaReceber status;
-	
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dtVencimento;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dtPagamento;
-	
+
 	@Column(nullable = false)
 	private BigDecimal valorTotal;
-	
+
 	private BigDecimal valorDesconto;
-	
-	
-	
+
+
+
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
-	
+
 
 
 	public Long getId() {
@@ -68,7 +68,7 @@ public class ContaReceber implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -134,9 +134,7 @@ public class ContaReceber implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		ContaReceber other = (ContaReceber) obj;
 		return Objects.equals(id, other.id);

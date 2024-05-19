@@ -53,7 +53,7 @@ public class Endereco implements Serializable {
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
-	
+
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
@@ -129,7 +129,7 @@ public class Endereco implements Serializable {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
