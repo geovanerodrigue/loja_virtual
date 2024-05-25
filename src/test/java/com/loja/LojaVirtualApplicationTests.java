@@ -170,11 +170,11 @@ public class LojaVirtualApplicationTests extends TestCase {
 				                         .getResponse().getContentAsString(),
 				                          new TypeReference<List<Acesso>>() {});
 
-	
+
 		assertEquals(1, retornoApiList.size());
 
 		assertEquals(acesso.getDescricao(), retornoApiList.get(0).getDescricao());
-		
+
 		acessoRepository.deleteById(acesso.getId());
 
 	}

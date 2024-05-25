@@ -36,7 +36,7 @@ public abstract class Pessoa implements Serializable {
 
 	@Column(nullable = false)
 	private String telefone;
-	
+
 	@Column
 	private String tipoPessoa;
 

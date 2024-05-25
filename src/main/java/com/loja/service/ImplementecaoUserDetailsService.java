@@ -12,19 +12,19 @@ import com.loja.repository.UsuarioRepository;
 
 @Service
 public class ImplementecaoUserDetailsService implements UserDetailsService {
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
+
 		Usuario usuario = usuarioRepository.findUserByLogin(username);
 
 		if(usuario == null) {
 			throw new UsernameNotFoundException("Usuário não foi encontrado.");
 		}
-		
+
 		return new User(usuario.getLogin(), usuario.getPassword(), usuario.getAuthorities());
 	}
 

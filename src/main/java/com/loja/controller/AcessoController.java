@@ -45,7 +45,8 @@ public class AcessoController {
 
 		return new ResponseEntity("Acesso Removido",HttpStatus.OK);
 	}
-	
+
+	//@Secured({"ROLE_GERENTE", "ROLE_ADMIN"})
 	@ResponseBody
 	@DeleteMapping(value = "**/deleteAcessoPorId/{id}")
 	public ResponseEntity<?> deleteAcessoPorId(@PathVariable("id") Long id) {
@@ -54,23 +55,23 @@ public class AcessoController {
 
 		return new ResponseEntity("Acesso Removido",HttpStatus.OK);
 	}
-	
+
 	@ResponseBody
 	@GetMapping(value = "**/obterAcessoPorId/{id}")
 	public ResponseEntity<Acesso> obterAcessoPorId(@PathVariable("id") Long id) {
 
 		Acesso acesso = acessoRepository.findById(id).get();
 
-		return new ResponseEntity<Acesso>(acesso, HttpStatus.OK);
+		return new ResponseEntity<>(acesso, HttpStatus.OK);
 	}
-	
+
 	@ResponseBody
 	@GetMapping(value = "**/buscarPordDesc/{desc}")
 	public ResponseEntity<List<Acesso>> buscarPorDesc(@PathVariable("desc") String desc) {
 
 		List<Acesso> acesso = acessoRepository.buscarAcessoDes(desc);
 
-		return new ResponseEntity<List<Acesso>>(acesso, HttpStatus.OK);
+		return new ResponseEntity<>(acesso, HttpStatus.OK);
 	}
 
 }
