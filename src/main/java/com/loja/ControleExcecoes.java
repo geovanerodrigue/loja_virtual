@@ -21,6 +21,16 @@ import com.loja.model.dto.ObjetoErroDTO;
 @RestControllerAdvice
 @ControllerAdvice
 public class ControleExcecoes extends ResponseEntityExceptionHandler  {
+	
+	@ExceptionHandler(ExceptionMentoriaJava.class)
+	public ResponseEntity<Object> handleExceptionCustom(ExceptionMentoriaJava ex) {
+		ObjetoErroDTO objetoErroDTO = new ObjetoErroDTO();
+		
+		objetoErroDTO.setError(ex.getMessage());
+		objetoErroDTO.setCode(HttpStatus.OK.toString());
+		
+		return new ResponseEntity<Object>(objetoErroDTO, HttpStatus.OK);
+	}
 
 	//captura excecoes do projeto
 	@ExceptionHandler({Exception.class, RuntimeException.class, Throwable.class})
@@ -44,7 +54,10 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler  {
 		objetoErroDTO.setError(msg);
 		objetoErroDTO.setCode(status.value()+ "==>" + status.getReasonPhrase());
 		
+		ex.printStackTrace();
+		
 		return new ResponseEntity<Object>(objetoErroDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+		
 	}
 	
 	//captura erro na parte de banco
@@ -67,6 +80,8 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler  {
 		
 		objetoErroDTO.setError(msg);
 		objetoErroDTO.setCode(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+		
+		ex.printStackTrace();
 		
 		return new ResponseEntity<Object>(objetoErroDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 		
