@@ -34,7 +34,7 @@ public class AcessoController {
 
 		Acesso acessoSalvo = acessoService.save(acesso);
 
-		return new ResponseEntity<>(acessoSalvo, HttpStatus.OK);
+		return new ResponseEntity<Acesso>(acessoSalvo, HttpStatus.OK);
 	}
 
 	@ResponseBody
@@ -62,7 +62,7 @@ public class AcessoController {
 
 		Acesso acesso = acessoRepository.findById(id).get();
 
-		return new ResponseEntity<>(acesso, HttpStatus.OK);
+		return new ResponseEntity<Acesso>(acesso, HttpStatus.OK);
 	}
 
 	@ResponseBody
@@ -71,7 +71,7 @@ public class AcessoController {
 
 		List<Acesso> acesso = acessoRepository.buscarAcessoDes(desc);
 
-		return new ResponseEntity<>(acesso, HttpStatus.OK);
+		return new ResponseEntity<List<Acesso>>(acesso, HttpStatus.OK);
 	}
 
 }
