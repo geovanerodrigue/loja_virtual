@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.loja.ExceptionMentoriaJava;
+import com.loja.model.PessoaFisica;
 import com.loja.model.PessoaJuridica;
 import com.loja.repository.PessoaRepository;
 import com.loja.service.PessoaUserService;
+import com.loja.util.ValidaCPF;
+import com.loja.util.ValidaCnpj;
 
 @RestController
 public class PessoaController {
@@ -37,10 +40,36 @@ public class PessoaController {
 		if(pessoaJuridica.getId() ==  null && pessoaRepository.existeInscEstadualCadastrado(pessoaJuridica.getInscEstadual()) != null) {
 			throw new ExceptionMentoriaJava("Já existe Inscrição Estadual cadastrado com o número: " + pessoaJuridica.getInscEstadual());
 		}
+		
+		if(!ValidaCnpj.isCNPJ(pessoaJuridica.getCnpj())) {
+			throw new ExceptionMentoriaJava("Cnpj: " + pessoaJuridica.getCnpj() + " está inválido.");
+		}
 			
 		pessoaJuridica = pessoaUserService.salvarPessoajuridica(pessoaJuridica);
 		
 		return new ResponseEntity<PessoaJuridica>(pessoaJuridica, HttpStatus.OK);
+		
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "**/salvarPf")
+	public ResponseEntity<PessoaFisica> salvarPf(@RequestBody PessoaFisica pessoaFisica) throws ExceptionMentoriaJava{
+		
+		if(pessoaFisica ==  null) {
+			throw new ExceptionMentoriaJava("Pessoa fisica não pode sere NULL");
+		}
+		
+		if(pessoaFisica.getId() ==  null && pessoaRepository.existeCpfCadastrado(pessoaFisica.getCpf()) != null) {
+			throw new ExceptionMentoriaJava("Já existe CPF cadastrado com o número: " + pessoaFisica.getCpf());
+		}
+		
+		if(!ValidaCPF.isCPF(pessoaFisica.getCpf())) {
+			throw new ExceptionMentoriaJava("Cnpj: " + pessoaFisica.getCpf() + " está inválido.");
+		}
+			
+		pessoaFisica = pessoaUserService.salvarPessoaFisica(pessoaFisica);
+		
+		return new ResponseEntity<PessoaFisica>(pessoaFisica, HttpStatus.OK);
 		
 	}
 
