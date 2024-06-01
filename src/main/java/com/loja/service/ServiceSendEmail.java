@@ -53,6 +53,8 @@ public class ServiceSendEmail {
 		message.setRecipients(Message.RecipientType.TO, toUser);
 		message.setSubject(assunto);
 		message.setText(menssagem);
+		message.setContent(menssagem, "text/htmk; charset=utf-8");
+		
 		
 		Transport.send(message);
 		
