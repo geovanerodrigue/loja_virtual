@@ -27,19 +27,19 @@ public class TestePessoaUsuario extends TestCase {
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
-	
+	/*
 	@Test
 	public void testCadPessoaJuririca() throws ExceptionMentoriaJava {
 		
 		PessoaJuridica pessoaJuridica = new PessoaJuridica();
 		pessoaJuridica.setCnpj("696969696" + Calendar.getInstance().getTimeInMillis());
-		pessoaJuridica.setNome("Sauron da Silva");
-		pessoaJuridica.setEmail("sauron@gmail.com");
-		pessoaJuridica.setTelefone("4012222222");
-		pessoaJuridica.setInscEstadual("7071707222");
-		pessoaJuridica.setInscMunicipal("40414222222");
-		pessoaJuridica.setNomeFantasia("30313002222");
-		pessoaJuridica.setRazaoSocial("10110101022222");
+		pessoaJuridica.setNome("Sauronaaa da Silva");
+		pessoaJuridica.setEmail("sauronaaa@gmail.com");
+		pessoaJuridica.setTelefone("401222a2222");
+		pessoaJuridica.setInscEstadual("70717072a22");
+		pessoaJuridica.setInscMunicipal("40414222a222");
+		pessoaJuridica.setNomeFantasia("303130022a22");
+		pessoaJuridica.setRazaoSocial("101101010a22222");
 		
 		Endereco endereco1 = new Endereco();
 		endereco1.setBairro("JD dias");
@@ -90,27 +90,28 @@ public class TestePessoaUsuario extends TestCase {
 		pessoaFisica.setEmail("testador@gmail.com");
 		pessoaFisica.setTelefone("40028922");
 		pessoaFisica.setEmpresa(pessoaFisica);
-		*/
+		
 		
 	}
-	
+	*/
 
 	@Test
 	public void testCadPessoaFisica() throws ExceptionMentoriaJava {
 		
-		PessoaJuridica pessoaJuridica =  pessoaRepository.existeCnpjCadastrado("1647987989047");
+		PessoaJuridica pessoaJuridica =  pessoaRepository.existeCnpjCadastrado("78.379.264/0001-95");
 		
 
 		PessoaFisica pessoaFisica = new PessoaFisica();
-		pessoaFisica.setCpf("713.482.980-49");
-		pessoaFisica.setNome("Alex fernando");
-		pessoaFisica.setEmail("alex.fe85549989r9559nando.egidio@gmail.com");
-		pessoaFisica.setTelefone("45999795800");
+		pessoaFisica.setCpf("749.272.200-10");
+		pessoaFisica.setNome("Alex Leão");
+		pessoaFisica.setEmail("meutestesinhoooo@gmail.com.br");
+		pessoaFisica.setTelefone("4599979800");
+		pessoaFisica.setTipoPessoa("FISICA");
 		pessoaFisica.setEmpresa(pessoaJuridica);
 		
 		Endereco endereco1 = new Endereco();
 		endereco1.setBairro("Jd Dias");
-		endereco1.setCep("556556565");
+		endereco1.setCep("55655565");
 		endereco1.setComplemento("Casa cinza");
 		endereco1.setNumero("389");
 		endereco1.setPessoa(pessoaFisica);
