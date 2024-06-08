@@ -1,5 +1,7 @@
 package com.loja.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +15,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.loja.ExceptionMentoriaJava;
+import com.loja.enums.TipoPessoa;
 import com.loja.model.Endereco;
 import com.loja.model.PessoaFisica;
 import com.loja.model.PessoaJuridica;
 import com.loja.model.dto.CepDto;
+import com.loja.model.dto.ConsultaCnpjDto;
 import com.loja.repository.EnderecoRepository;
+import com.loja.repository.PessoaFisicaRepository;
 import com.loja.repository.PessoaRepository;
 import com.loja.service.PessoaUserService;
+import com.loja.service.ServiceContagemAcessoApi;
 import com.loja.util.ValidaCPF;
 import com.loja.util.ValidaCnpj;
 
@@ -35,6 +41,52 @@ public class PessoaController {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
+	@Autowired
+	private PessoaFisicaRepository pessoaFisicaRepository;
+	
+	@Autowired
+	private ServiceContagemAcessoApi serviceContagemAcessoApi;
+	
+	
+	@ResponseBody
+	@GetMapping(value = "**/consultaPfNome/{nome}")
+    public ResponseEntity<List<PessoaFisica>> consultaPfNome(@PathVariable("nome") String nome){
+	
+		List<PessoaFisica> fisicas = pessoaFisicaRepository.pesquisaPorNomePf(nome.trim().toUpperCase());
+		
+		serviceContagemAcessoApi.atualizaAcessoEndPointPF();
+		
+		return new ResponseEntity<List<PessoaFisica>>(fisicas, HttpStatus.OK);
+    }
+	
+	@ResponseBody
+	@GetMapping(value = "**/consultaPfCpf/{cpf}")
+    public ResponseEntity<List<PessoaFisica>> consultaPfCpf(@PathVariable("cpf") String cpf){
+	
+		List<PessoaFisica> fisicas = pessoaFisicaRepository.pesquisaPorCpf(cpf);
+		
+		return new ResponseEntity<List<PessoaFisica>>(fisicas, HttpStatus.OK);
+    }
+	
+	@ResponseBody
+	@GetMapping(value = "**/consultaNomePj/{nome}")
+    public ResponseEntity<List<PessoaJuridica>> consultaNomePj(@PathVariable("nome") String nome){
+	
+		List<PessoaJuridica> fisicas = pessoaRepository.pesquisaPorNomePj(nome.trim().toUpperCase());
+		
+		return new ResponseEntity<List<PessoaJuridica>>(fisicas, HttpStatus.OK);
+    }
+	
+	@ResponseBody
+	@GetMapping(value = "**/consultaCnpjPj/{cnpj}")
+    public ResponseEntity<List<PessoaJuridica>> consultaCnpjPj(@PathVariable("cnpj") String cnpj){
+	
+		List<PessoaJuridica> fisicas = pessoaRepository.existeCnpjCadastradoList(cnpj);
+		
+		return new ResponseEntity<List<PessoaJuridica>>(fisicas, HttpStatus.OK);
+    }
+	
+	
 	@ResponseBody
 	@GetMapping(value = "**/consultaCep/{cep}")
 	public ResponseEntity<CepDto> consultaCep(@PathVariable("cep") String cep) {
@@ -44,11 +96,24 @@ public class PessoaController {
 	}
 	
 	@ResponseBody
+	@GetMapping(value = "**/consultaCnpjReceitaWs/{cnpj}")
+	public ResponseEntity<ConsultaCnpjDto> consultaCnpjReceitaWs(@PathVariable("cnpj") String cep) {
+		
+		return new ResponseEntity<ConsultaCnpjDto>(pessoaUserService.consultaCnpjReceitaWs(cep), HttpStatus.OK);
+		
+	}
+	
+	
+	@ResponseBody
 	@PostMapping(value = "**/salvarPj")
 	public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws ExceptionMentoriaJava{
 		
 		if(pessoaJuridica ==  null) {
-			throw new ExceptionMentoriaJava("Pessoa Juridica não pode sere NULL");
+			throw new ExceptionMentoriaJava("Pessoa Juridica não pode ser NULL");
+		}
+		
+		if(pessoaJuridica.getTipoPessoa() == null) {
+			throw new ExceptionMentoriaJava("Informe o tipo Jurídico ou Fornecedor da loja");
 		}
 		
 		if(pessoaJuridica.getId() ==  null && pessoaRepository.existeCnpjCadastrado(pessoaJuridica.getCnpj()) != null) {
@@ -107,6 +172,10 @@ public class PessoaController {
 		
 		if(pessoaFisica ==  null) {
 			throw new ExceptionMentoriaJava("Pessoa fisica não pode sere NULL");
+		}
+		
+		if(pessoaFisica.getTipoPessoa() == null) {
+			pessoaFisica.setTipoPessoa(TipoPessoa.FISICA.name());
 		}
 		
 		if(pessoaFisica.getId() ==  null && pessoaRepository.existeCpfCadastrado(pessoaFisica.getCpf()) != null) {

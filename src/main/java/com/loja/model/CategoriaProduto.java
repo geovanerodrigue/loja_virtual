@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "categoria_produto")
 @SequenceGenerator(name = "seq_categoria_produto", sequenceName = "seq_categoria_produto", allocationSize = 1, initialValue = 1)
-public class Categoria_Produto implements Serializable {
+public class CategoriaProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,13 +31,13 @@ public class Categoria_Produto implements Serializable {
 	
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
-	private Pessoa empresa;
+	private PessoaJuridica empresa;
 
-	public Pessoa getEmpresa() {
+	public PessoaJuridica getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(Pessoa empresa) {
+	public void setEmpresa(PessoaJuridica empresa) {
 		this.empresa = empresa;
 	}
 
@@ -68,7 +68,7 @@ public class Categoria_Produto implements Serializable {
 			return true;
 		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
-		Categoria_Produto other = (Categoria_Produto) obj;
+		CategoriaProduto other = (CategoriaProduto) obj;
 		return Objects.equals(id, other.id);
 	}
 }
