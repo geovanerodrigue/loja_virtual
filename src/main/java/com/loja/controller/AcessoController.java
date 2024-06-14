@@ -32,7 +32,7 @@ public class AcessoController {
 	@ResponseBody
 	@PostMapping(value = "**/salvarAcesso")
 	public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) throws ExceptionMentoriaJava {
-		
+
 		if(acesso.getId() == null) {
 		List<Acesso> acessos = acessoRepository.buscarAcessoDes(acesso.getDescricao().toUpperCase());
 		if(!acessos.isEmpty()) {
@@ -41,7 +41,7 @@ public class AcessoController {
 		}
 		Acesso acessoSalvo = acessoService.save(acesso);
 
-		return new ResponseEntity<Acesso>(acessoSalvo, HttpStatus.OK);
+		return new ResponseEntity<>(acessoSalvo, HttpStatus.OK);
 	}
 
 	@ResponseBody
@@ -72,8 +72,8 @@ public class AcessoController {
 		if(acesso == null) {
 			throw new ExceptionMentoriaJava("Não foi encotrado o Acesso com o código: " + id);
 		}
-		
-		return new ResponseEntity<Acesso>(acesso, HttpStatus.OK);
+
+		return new ResponseEntity<>(acesso, HttpStatus.OK);
 	}
 
 	@ResponseBody
@@ -82,7 +82,7 @@ public class AcessoController {
 
 		List<Acesso> acesso = acessoRepository.buscarAcessoDes(desc.toUpperCase());
 
-		return new ResponseEntity<List<Acesso>>(acesso, HttpStatus.OK);
+		return new ResponseEntity<>(acesso, HttpStatus.OK);
 	}
 
 }

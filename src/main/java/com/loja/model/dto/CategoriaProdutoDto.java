@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class CategoriaProdutoDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private String nomeDesc;
 	private String empresa;
-	
-	
+
+
 	public Long getId() {
 		return id;
 	}
@@ -29,7 +29,7 @@ public class CategoriaProdutoDto implements Serializable {
 	public void setEmpresa(String empresa) {
 		this.empresa = empresa;
 	}
-	
-	
+
+
 
 }

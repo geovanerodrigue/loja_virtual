@@ -184,9 +184,9 @@ public class LojaVirtualApplicationTests extends TestCase {
 	public void testCadastraAcesso() throws ExceptionMentoriaJava {
 
 		String descacesso =  "ROLE_ADMIN" + Calendar.getInstance().getTimeInMillis();
-		
+
 		Acesso acesso = new Acesso();
-		
+
 		acesso.setDescricao(descacesso);
 
 		assertEquals(true, acesso.getId() == null);

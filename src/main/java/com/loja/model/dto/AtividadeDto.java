@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class AtividadeDto  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String text;
 	private String code;
-	
+
 	public String getText() {
 		return text;
 	}
@@ -21,7 +21,7 @@ public class AtividadeDto  implements Serializable {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
-	
+
+
 
 }

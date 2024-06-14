@@ -3,11 +3,11 @@ package com.loja.util;
 import java.util.InputMismatchException;
 
 public class ValidaCPF {
-	
+
 public static boolean isCPF(String CPF) {
-		
+
 		CPF = CPF.replaceAll("\\.", "").replaceAll("\\-", "");
-		
+
 		// considera-se erro CPF's formados por uma sequencia de numeros iguais
 		if (CPF.equals("00000000000") || CPF.equals("11111111111") || CPF.equals("22222222222")
 				|| CPF.equals("33333333333") || CPF.equals("44444444444") || CPF.equals("55555555555")
@@ -27,7 +27,7 @@ public static boolean isCPF(String CPF) {
 				// converte o i-esimo caractere do CPF em um numero:
 				// por exemplo, transforma o caractere '0' no inteiro 0
 				// (48 eh a posicao de '0' na tabela ASCII)
-				num = (int) (CPF.charAt(i) - 48);
+				num = CPF.charAt(i) - 48;
 				sm = sm + (num * peso);
 				peso = peso - 1;
 			}
@@ -42,7 +42,7 @@ public static boolean isCPF(String CPF) {
 			sm = 0;
 			peso = 11;
 			for (i = 0; i < 10; i++) {
-				num = (int) (CPF.charAt(i) - 48);
+				num = CPF.charAt(i) - 48;
 				sm = sm + (num * peso);
 				peso = peso - 1;
 			}

@@ -11,8 +11,8 @@ public class QsaDto  implements Serializable {
 	private String pais_origem;
 	private String nome_rep_legal;
 	private String qual_rep_legal;
-	
-	
+
+
 	public String getNome() {
 		return nome;
 	}
@@ -42,5 +42,5 @@ public class QsaDto  implements Serializable {
 	}
 	public void setQual_rep_legal(String qual_rep_legal) {
 		this.qual_rep_legal = qual_rep_legal;
-	}	
+	}
 }

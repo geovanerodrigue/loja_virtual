@@ -3,12 +3,12 @@ package com.loja.util;
 import java.util.InputMismatchException;
 
 public class ValidaCnpj {
-	
+
 public static boolean isCNPJ(String CNPJ) {
-	
-		
-		CNPJ = CNPJ.replaceAll("\\.", "").replaceAll("\\/", "").replaceAll("\\-", ""); 
-		
+
+
+		CNPJ = CNPJ.replaceAll("\\.", "").replaceAll("\\/", "").replaceAll("\\-", "");
+
 		// considera-se erro CNPJ's formados por uma sequencia de numeros iguais
 		if (CNPJ.equals("00000000000000") || CNPJ.equals("11111111111111") || CNPJ.equals("22222222222222")
 				|| CNPJ.equals("33333333333333") || CNPJ.equals("44444444444444") || CNPJ.equals("55555555555555")
@@ -28,7 +28,7 @@ public static boolean isCNPJ(String CNPJ) {
 				// converte o i-ésimo caractere do CNPJ em um número:
 				// por exemplo, transforma o caractere '0' no inteiro 0
 				// (48 eh a posição de '0' na tabela ASCII)
-				num = (int) (CNPJ.charAt(i) - 48);
+				num = CNPJ.charAt(i) - 48;
 				sm = sm + (num * peso);
 				peso = peso + 1;
 				if (peso == 10)
@@ -45,7 +45,7 @@ public static boolean isCNPJ(String CNPJ) {
 			sm = 0;
 			peso = 2;
 			for (i = 12; i >= 0; i--) {
-				num = (int) (CNPJ.charAt(i) - 48);
+				num = CNPJ.charAt(i) - 48;
 				sm = sm + (num * peso);
 				peso = peso + 1;
 				if (peso == 10)

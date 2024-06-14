@@ -20,6 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import com.loja.enums.StatusContaPagar;
 
@@ -34,13 +35,16 @@ public class ContaPagar implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_pagar")
 	private Long id;
 
+	@NotNull(message = "Informe o campo descrição da conta a pagar")
 	@Column(nullable = false)
 	private String descricao;
 
+	@NotNull(message = "Informe o status da conta a pagar")
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusContaPagar status;
 
+	@NotNull(message = "Informe a data de vencimento da conta a pagar")
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dtVencimento;
@@ -48,30 +52,31 @@ public class ContaPagar implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dtPagamento;
 
+	@NotNull(message = "Informe o valor total da conta a pagar")
 	@Column(nullable = false)
 	private BigDecimal valorTotal;
 
 	private BigDecimal valorDesconto;
 
-	@ManyToOne(targetEntity = Pessoa.class)
+	@ManyToOne(targetEntity = PessoaFisica.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey
 	= @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
-	private Pessoa pessoa;
+	private PessoaFisica pessoa;
 
-	@ManyToOne(targetEntity = Pessoa.class)
+	@ManyToOne(targetEntity = PessoaJuridica.class)
 	@JoinColumn(name = "pessoa_forn_id", nullable = false, foreignKey
 	= @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_forn_fk"))
-	private Pessoa pessoa_fornecedor;
-	
-	@ManyToOne(targetEntity = Pessoa.class)
-	@JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
-	private Pessoa empresa;
+	private PessoaJuridica pessoa_fornecedor;
 
-	public Pessoa getEmpresa() {
+	@ManyToOne(targetEntity = PessoaJuridica.class)
+	@JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private PessoaJuridica empresa;
+
+	public PessoaJuridica getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(Pessoa empresa) {
+	public void setEmpresa(PessoaJuridica empresa) {
 		this.empresa = empresa;
 	}
 
@@ -83,11 +88,11 @@ public class ContaPagar implements Serializable {
 		this.id = id;
 	}
 
-	public Pessoa getPessoa() {
+	public PessoaFisica getPessoa() {
 		return pessoa;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
+	public void setPessoa(PessoaFisica pessoa) {
 		this.pessoa = pessoa;
 	}
 
@@ -139,11 +144,11 @@ public class ContaPagar implements Serializable {
 		this.valorDesconto = valorDesconto;
 	}
 
-	public Pessoa getPessoa_fornecedor() {
+	public PessoaJuridica getPessoa_fornecedor() {
 		return pessoa_fornecedor;
 	}
 
-	public void setPessoa_fornecedor(Pessoa pessoa_fornecedor) {
+	public void setPessoa_fornecedor(PessoaJuridica pessoa_fornecedor) {
 		this.pessoa_fornecedor = pessoa_fornecedor;
 	}
 

@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ConsultaCnpjDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private List<AtividadeDto> atividade_principal = new ArrayList<AtividadeDto>();
-	
+
+	private List<AtividadeDto> atividade_principal = new ArrayList<>();
+
 	private String data_situacao;
 	private String tipo;
 	private String nome;
@@ -19,10 +19,10 @@ public class ConsultaCnpjDto implements Serializable {
 	private String telefone;
 	private String email;
 
-	private List<AtividadeDto> atividades_secundarias = new ArrayList<AtividadeDto>();
-	
-	private List<QsaDto> sqa = new ArrayList<QsaDto>();
-	
+	private List<AtividadeDto> atividades_secundarias = new ArrayList<>();
+
+	private List<QsaDto> sqa = new ArrayList<>();
+
 	private String situacao;
 	private String bairro;
 	private String logradouro;
@@ -42,10 +42,10 @@ public class ConsultaCnpjDto implements Serializable {
 	private String situacao_especial;
 	private String data_situacao_especial;
 	private String capital_social;
-	
+
 	@JsonIgnore
 	private ExtraDto extra;
-	
+
 	private BillingDto billing;
 
 	public List<AtividadeDto> getAtividade_principal() {
@@ -287,7 +287,7 @@ public class ConsultaCnpjDto implements Serializable {
 	public void setBilling(BillingDto billing) {
 		this.billing = billing;
 	}
-	
-	
-	
+
+
+
 }

@@ -61,7 +61,7 @@ public class JWTTokenAutenticacaoService {
 		String token = request.getHeader(HEADER_STRING);
 
 		try {
-		
+
 		if(token != null) {
 
 			String tokenLimpo =  token.replace(TOKEN_PREFIX, "").trim();
@@ -83,7 +83,7 @@ public class JWTTokenAutenticacaoService {
 			}
 
 		}
-		
+
 		}catch (SignatureException e) {
 			response.getWriter().write("Token está onválido.");
 		}catch (ExpiredJwtException e) {

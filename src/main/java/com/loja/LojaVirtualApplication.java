@@ -31,18 +31,18 @@ public class LojaVirtualApplication implements AsyncConfigurer {
 
 		SpringApplication.run(LojaVirtualApplication.class, args);
 	}
-	
+
 	@Override
 	@Bean
 	public Executor getAsyncExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		
+
 		executor.setCorePoolSize(10);
 		executor.setMaxPoolSize(20);
 		executor.setQueueCapacity(500);
 		executor.setThreadNamePrefix("Assyncrono Thread");
 		executor.initialize();
-		
+
 		return executor;
 	}
 

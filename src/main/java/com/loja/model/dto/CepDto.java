@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class CepDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String cep;
 	private String logradouro;
 	private String complemento;
@@ -76,7 +76,7 @@ public class CepDto implements Serializable {
 	public void setSiafi(String siafi) {
 		this.siafi = siafi;
 	}
-	
-	
+
+
 
 }
