@@ -2,17 +2,22 @@ package com.loja.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -68,9 +73,9 @@ public class Produto  implements Serializable {
 	private BigDecimal valorVenda = BigDecimal.ZERO;
 
 	@Column(nullable = false)
-	private Integer QtdEstoque = 0;
+	private Integer qtdEstoque = 0;
 
-	private Integer QtdAlertaEstoque = 0;
+	private Integer qtdAlertaEstoque = 0;
 
 	private String linkYoutube;
 
@@ -93,19 +98,15 @@ public class Produto  implements Serializable {
 	@JoinColumn(name = "marca_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "marca_produto_id_fk"))
 	private MarcaProduto marcaProduto = new MarcaProduto();
 
-	
-	@NotNull(message = "Nota  do produto deve ser informado!")
-	@ManyToOne(targetEntity = NotaItemProduto.class)
-	@JoinColumn(name = "nota_item_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_item_produto_id_fk"))
-	private NotaItemProduto notaItemProduto = new NotaItemProduto();
-
-
-	public NotaItemProduto getNotaItemProduto() {
-		return notaItemProduto;
+	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ImagemProduto> imagens = new ArrayList<ImagemProduto>();
+	 
+	public List<ImagemProduto> getImagens() {
+		return imagens;
 	}
 
-	public void setNotaItemProduto(NotaItemProduto notaItemProduto) {
-		this.notaItemProduto = notaItemProduto;
+	public void setImagens(List<ImagemProduto> imagens) {
+		this.imagens = imagens;
 	}
 
 	public MarcaProduto getMarcaProduto() {
@@ -203,21 +204,21 @@ public class Produto  implements Serializable {
 	public void setValorVenda(BigDecimal valorVenda) {
 		this.valorVenda = valorVenda;
 	}
-
+	
 	public Integer getQtdEstoque() {
-		return QtdEstoque;
+		return qtdEstoque;
 	}
 
 	public void setQtdEstoque(Integer qtdEstoque) {
-		QtdEstoque = qtdEstoque;
+		this.qtdEstoque = qtdEstoque;
 	}
 
 	public Integer getQtdAlertaEstoque() {
-		return QtdAlertaEstoque;
+		return qtdAlertaEstoque;
 	}
 
 	public void setQtdAlertaEstoque(Integer qtdAlertaEstoque) {
-		QtdAlertaEstoque = qtdAlertaEstoque;
+		this.qtdAlertaEstoque = qtdAlertaEstoque;
 	}
 
 	public String getLinkYoutube() {
