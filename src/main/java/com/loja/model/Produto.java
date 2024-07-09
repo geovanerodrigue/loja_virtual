@@ -99,8 +99,8 @@ public class Produto  implements Serializable {
 	private MarcaProduto marcaProduto = new MarcaProduto();
 
 	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<ImagemProduto> imagens = new ArrayList<ImagemProduto>();
-	 
+	private List<ImagemProduto> imagens = new ArrayList<>();
+
 	public List<ImagemProduto> getImagens() {
 		return imagens;
 	}
@@ -204,7 +204,7 @@ public class Produto  implements Serializable {
 	public void setValorVenda(BigDecimal valorVenda) {
 		this.valorVenda = valorVenda;
 	}
-	
+
 	public Integer getQtdEstoque() {
 		return qtdEstoque;
 	}

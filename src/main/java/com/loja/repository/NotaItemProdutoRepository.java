@@ -16,19 +16,19 @@ public interface NotaItemProdutoRepository extends JpaRepository<NotaItemProduto
 
 	@Query("select a from NotaItemProduto a where a.produto.id = ?1 and a.notaFiscalCompra.id = ?2")
 	List<NotaItemProduto> buscaNotaItemProdutoNota(Long idProduto, Long idNotaFiscal);
-	
+
 	@Query("select a from NotaItemProduto a where a.produto.id = ?1")
 	List<NotaItemProduto> buscaNotaItemPorProduto(Long idProduto);
-	
+
 	@Query("select a from NotaItemProduto a where a.notaFiscalCompra.id = ?1")
 	List<NotaItemProduto> buscaNotaItemPorNotaFiscal(Long idNotaFiscal);
-	
+
 	@Query("select a from NotaItemProduto a where a.empresa.id = ?1")
 	List<NotaItemProduto> buscaNotaItemPorEmpresa(Long idEmpresa);
-	
+
 	@Transactional
 	@Modifying
 	@Query(nativeQuery = true, value =  "delete from nota_item_produto where id = ?1")
 	void deleteByIdNotaItem(Long id);
-	
+
 }

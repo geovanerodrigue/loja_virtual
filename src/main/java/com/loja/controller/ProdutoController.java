@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.loja.ExceptionMentoriaJava;
+import com.loja.model.ImagemProduto;
 import com.loja.model.Produto;
 import com.loja.repository.ProdutoRepository;
 import com.loja.service.ServiceSendEmail;
@@ -37,125 +37,125 @@ public class ProdutoController {
 
 	@Autowired
     private ProdutoRepository produtoRepository;
-	
+
 	@Autowired
 	private ServiceSendEmail serviceSendEmail;
 
 	@ResponseBody
 	@PostMapping(value = "**/salvarProduto")
 	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionMentoriaJava, MessagingException, IOException {
-	
+
 		if(produto.getTipoUnidade() == null || produto.getTipoUnidade().trim().isEmpty()) {
 			throw new ExceptionMentoriaJava("Tipo da unidade deve ser informada!");
 		}
-		
+
 		if(produto.getNome().length() < 10) {
 			throw new ExceptionMentoriaJava("Nome do produto deve ter mais de 10 letras!");
 		}
-		
+
 		if (produto.getEmpresa() == null || produto.getEmpresa().getId() <= 0) {
 			throw new ExceptionMentoriaJava("Empresa responsável deve ser informada");
 		}
-		
+
 		if (produto.getId() == null) {
 		  List<Produto> produtos  = produtoRepository.buscarProdutoNome(produto.getNome().toUpperCase(), produto.getEmpresa().getId());
-		  
+
 		  if (!produtos.isEmpty()) {
 			  throw new ExceptionMentoriaJava("Já existe Produto com a descrição: " + produto.getNome());
 		  }
 		}
-		
-		
+
+
 		if (produto.getCategoriaProduto() == null || produto.getCategoriaProduto().getId() <= 0) {
 			throw new ExceptionMentoriaJava("Categoria deve ser informada");
 		}
-		
-		
+
+
 		if (produto.getMarcaProduto() == null || produto.getMarcaProduto().getId() <= 0) {
 			throw new ExceptionMentoriaJava("Marca deve ser informada");
 		}
-		
+
 		if (produto.getQtdEstoque() < 1) {
 			throw new ExceptionMentoriaJava("O produto deve ter no mínimo 1 no estoque");
 		}
-		
+
 		if(produto.getImagens() == null || produto.getImagens().isEmpty() || produto.getImagens().size() == 0) {
 			throw new ExceptionMentoriaJava("A imagem deve ser imformada!");
 		}
-		
+
 		if(produto.getImagens().size() < 3) {
 			throw new ExceptionMentoriaJava("Deve ser informada pelo menos 3 imagens para o produto!");
 		}
-		
+
 		if(produto.getImagens().size() > 6) {
 			throw new ExceptionMentoriaJava("Deve ser informada no máximo 6 imagens para o produto!");
 		}
-		
+
 		if(produto.getId() == null) {
-			
-			for(int x = 0; x < produto.getImagens().size(); x ++) {
-				produto.getImagens().get(x).setProduto(produto);
-				produto.getImagens().get(x).setEmpresa(produto.getEmpresa());
-				
+
+			for (ImagemProduto element : produto.getImagens()) {
+				element.setProduto(produto);
+				element.setEmpresa(produto.getEmpresa());
+
 				String base64Image = "";
-				
-				if(produto.getImagens().get(x).getImagemOriginal().contains("data:image")) {
-					base64Image = produto.getImagens().get(x).getImagemOriginal().split(",")[1];
+
+				if(element.getImagemOriginal().contains("data:image")) {
+					base64Image = element.getImagemOriginal().split(",")[1];
 				} else {
-					base64Image = produto.getImagens().get(x).getImagemOriginal().split(",")[1];
+					base64Image = element.getImagemOriginal().split(",")[1];
 				}
-				
+
 				byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64Image);
-				
+
 				BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
-				
+
 				if(bufferedImage != null) {
-					
-					int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();				
+
+					int type = bufferedImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
 					int largura =  Integer.parseInt("800");
 					int altura = Integer.parseInt("600");
-					
+
 					BufferedImage resizedImage = new BufferedImage(largura, altura, type);
 					Graphics2D g = resizedImage.createGraphics();
 					g.drawImage(bufferedImage, 0, 0, largura, altura, null);
 					g.dispose();
-					
+
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					ImageIO.write(resizedImage,"png", baos);
-					
+
 					String miniImgBase64 = "data:image/png;base64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
-					
-					produto.getImagens().get(x).setImagemMiniatura(miniImgBase64);
-					
+
+					element.setImagemMiniatura(miniImgBase64);
+
 					bufferedImage.flush();
 					resizedImage.flush();
 					baos.flush();
 					baos.close();
-					
-					
+
+
 				}
-				
+
 			}
-			
+
 		}
 
 		Produto produtoSalvo = produtoRepository.save(produto);
 
 		if(produto.getAlertaQtdEstoque() && produto.getQtdEstoque() <= 1) {
-			
+
 			StringBuilder html = new StringBuilder();
 			html.append("<h2>")
 			.append("Produto: " + produto.getNome())
 			.append(" com estoque baixo: " + produto.getQtdEstoque());
 			html.append("<p> Id produto.:").append(produto.getId()).append("</p>");
-			
+
 			if(produto.getEmpresa().getEmail() != null) {
 				serviceSendEmail.enviarEmailHtml("Produto sem estoque ", html.toString(), produto.getEmpresa().getEmail());
 			}
-			
+
 		}
-		
-		return new ResponseEntity<Produto>(produtoSalvo, HttpStatus.OK);
+
+		return new ResponseEntity<>(produtoSalvo, HttpStatus.OK);
 	}
 
 	@ResponseBody

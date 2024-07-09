@@ -20,49 +20,49 @@ import com.loja.repository.NotaItemProdutoRepository;
 
 @RestController
 public class NotaItemProdutoController {
-	
+
 	@Autowired
 	private NotaItemProdutoRepository notaItemProdutoRepository;
-	
+
 	@ResponseBody
 	@PostMapping(value = "**/salvarNotaItemProduto")
 	public ResponseEntity<NotaItemProduto> salvarNotaItemProduto(@RequestBody @Valid NotaItemProduto notaItemProduto) throws ExceptionMentoriaJava {
-		
+
 		if(notaItemProduto.getId() == null) {
-			
+
 			if(notaItemProduto.getProduto() == null || notaItemProduto.getProduto().getId() <= 0) {
 				throw new  ExceptionMentoriaJava("O produto deve ser informado!");
 			}
-			
+
 			if(notaItemProduto.getNotaFiscalCompra() == null || notaItemProduto.getNotaFiscalCompra().getId() <= 0) {
 				throw new  ExceptionMentoriaJava("A nota fiscal deve ser informada!");
 			}
-			
+
 			if(notaItemProduto.getEmpresa() == null || notaItemProduto.getEmpresa().getId() <= 0) {
 				throw new  ExceptionMentoriaJava("A empresa deve ser informada!");
 			}
-			
+
 			List<NotaItemProduto> notaExistente = notaItemProdutoRepository
 					.buscaNotaItemProdutoNota(notaItemProduto.getProduto().getId(),notaItemProduto.getNotaFiscalCompra().getId());
-			
+
 			if(!notaExistente.isEmpty()) {
 				throw new ExceptionMentoriaJava("Já existe esse produto cadastrado para esta nota!");
 			}
 		}
-		
-		
+
+
 		if(notaItemProduto.getQuantidade() <= 0) {
 			throw new ExceptionMentoriaJava("A quantidade deve ser informada!");
 		}
-		
+
 		NotaItemProduto notaItemProdutoSalva = notaItemProdutoRepository.save(notaItemProduto);
-		
+
 		notaItemProdutoSalva = notaItemProdutoRepository.findById(notaItemProduto.getId()).get();
-		
-		return new ResponseEntity<NotaItemProduto>(notaItemProdutoSalva, HttpStatus.OK);
-		
+
+		return new ResponseEntity<>(notaItemProdutoSalva, HttpStatus.OK);
+
 	}
-	
+
 	@ResponseBody
 	@DeleteMapping(value = "**/deleteNotaItemProdutoPorId/{id}")
 	public ResponseEntity<?> deleteNotaItemProdutoPorId(@PathVariable("id") Long id) {
@@ -71,5 +71,5 @@ public class NotaItemProdutoController {
 
 		return new ResponseEntity("Nota Item Produto Removido!",HttpStatus.OK);
 	}
-	
+
 }

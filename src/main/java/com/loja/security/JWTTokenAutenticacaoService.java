@@ -85,7 +85,7 @@ public class JWTTokenAutenticacaoService {
 		}
 
 		}catch (SignatureException e) {
-			response.getWriter().write("Token está onválido.");
+			response.getWriter().write("Token está inválido.");
 		}catch (ExpiredJwtException e) {
 			response.getWriter().write("Token está expirado, efetue o login novamente.");
 		}

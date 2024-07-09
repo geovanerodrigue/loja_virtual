@@ -57,7 +57,7 @@ public class NotaFiscalCompraController {
 
 		NotaFiscalCompra notaFiscalCompraSalvo = notaFiscalCompraRepository.save(notaFiscalCompra);
 
-		return new ResponseEntity<NotaFiscalCompra>(notaFiscalCompraSalvo, HttpStatus.OK);
+		return new ResponseEntity<>(notaFiscalCompraSalvo, HttpStatus.OK);
 	}
 
 	@ResponseBody
@@ -66,7 +66,7 @@ public class NotaFiscalCompraController {
 
 		List<NotaFiscalCompra> notaFiscalCompra = notaFiscalCompraRepository.buscaNotaDesc(desc.toUpperCase().trim());
 
-		return new ResponseEntity<List<NotaFiscalCompra>>(notaFiscalCompra, HttpStatus.OK);
+		return new ResponseEntity<>(notaFiscalCompra, HttpStatus.OK);
 	}
 
 	@ResponseBody
@@ -79,7 +79,7 @@ public class NotaFiscalCompraController {
 			throw new ExceptionMentoriaJava("Não foi encotrado a nota fiscal com o código: " + id);
 		}
 
-		return new ResponseEntity<NotaFiscalCompra>(notaFiscalCompra, HttpStatus.OK);
+		return new ResponseEntity<>(notaFiscalCompra, HttpStatus.OK);
 	}
 
 	@ResponseBody
