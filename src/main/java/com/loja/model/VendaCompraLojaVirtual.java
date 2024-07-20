@@ -105,10 +105,10 @@ public class VendaCompraLojaVirtual implements Serializable {
 	private PessoaJuridica empresa;
 
 	@OneToMany(mappedBy = "vendaCompraLojaVirtual", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<ItemVendaLoja> itemVendaLojas = new ArrayList<>();
+	private List<ItemVendaLoja> itemVendaLojas = new ArrayList<ItemVendaLoja>();
 
 	private Boolean excluido = Boolean.FALSE;
-
+	
 
 	public Boolean getExcluido() {
 		return excluido;
@@ -222,11 +222,11 @@ public class VendaCompraLojaVirtual implements Serializable {
 		this.diasEntrega = diasEntrega;
 	}
 
-	public Date getDatavenda() {
+	public Date getDataVneda() {
 		return dataVneda;
 	}
 
-	public void setDatavenda(Date dataVneda) {
+	public void setDataVneda(Date dataVneda) {
 		this.dataVneda = dataVneda;
 	}
 
@@ -247,10 +247,17 @@ public class VendaCompraLojaVirtual implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if ((obj == null) || (getClass() != obj.getClass()))
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		VendaCompraLojaVirtual other = (VendaCompraLojaVirtual) obj;
-		return Objects.equals(id, other.id);
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

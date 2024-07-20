@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.loja.ExceptionMentoriaJava;
 import com.loja.model.NotaFiscalCompra;
+import com.loja.model.NotaFiscalVenda;
 import com.loja.repository.NotaFiscalCompraRepository;
+import com.loja.repository.NotaFiscalVendaRepository;
 
 @RestController
 public class NotaFiscalCompraController {
@@ -25,7 +27,8 @@ public class NotaFiscalCompraController {
 	@Autowired
 	private NotaFiscalCompraRepository notaFiscalCompraRepository;
 
-
+	@Autowired
+    private NotaFiscalVendaRepository notaFiscalVendaRepository;
 
 	@ResponseBody
 	@PostMapping(value = "**/salvarNotaFiscalCompra")
@@ -79,7 +82,33 @@ public class NotaFiscalCompraController {
 			throw new ExceptionMentoriaJava("Não foi encotrado a nota fiscal com o código: " + id);
 		}
 
-		return new ResponseEntity<>(notaFiscalCompra, HttpStatus.OK);
+		return new ResponseEntity<NotaFiscalCompra>(notaFiscalCompra, HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "**/obterNotaFiscalCompraDaVenda/{idvenda}")
+	public ResponseEntity<List<NotaFiscalVenda>> obterNotaFiscalCompraDaVenda(@PathVariable("idvenda") Long idvenda) throws ExceptionMentoriaJava {
+
+		List<NotaFiscalVenda> notaFiscalCompra = notaFiscalVendaRepository.buscaNotaPorVenda(idvenda);
+
+		if(notaFiscalCompra == null) {
+			throw new ExceptionMentoriaJava("Não foi encotrado a nota fiscal de venda com o código: " + idvenda);
+		}
+
+		return new ResponseEntity<List<NotaFiscalVenda>>(notaFiscalCompra, HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "**/obterNotaFiscalCompraDaVendaUnico/{idvenda}")
+	public ResponseEntity<NotaFiscalVenda> obterNotaFiscalCompraDaVendaUnico(@PathVariable("idvenda") Long idvenda) throws ExceptionMentoriaJava {
+
+		NotaFiscalVenda notaFiscalCompra = notaFiscalVendaRepository.buscaNotaPorVendaUnica(idvenda);
+
+		if(notaFiscalCompra == null) {
+			throw new ExceptionMentoriaJava("Não foi encotrado a nota fiscal de venda com o código: " + idvenda);
+		}
+
+		return new ResponseEntity<NotaFiscalVenda>(notaFiscalCompra, HttpStatus.OK);
 	}
 
 	@ResponseBody
