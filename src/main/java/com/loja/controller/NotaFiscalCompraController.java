@@ -1,5 +1,6 @@
 package com.loja.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,8 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.loja.ExceptionMentoriaJava;
 import com.loja.model.NotaFiscalCompra;
 import com.loja.model.NotaFiscalVenda;
+import com.loja.model.dto.ObjetoRelatorioStatusCompra;
+import com.loja.model.dto.ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO;
+import com.loja.model.dto.ObjetoRequisicaoRelatorioProdutoAlertaEstoque;
 import com.loja.repository.NotaFiscalCompraRepository;
 import com.loja.repository.NotaFiscalVendaRepository;
+import com.loja.service.NotaFiscalCompraService;
 
 @RestController
 public class NotaFiscalCompraController {
@@ -29,6 +34,50 @@ public class NotaFiscalCompraController {
 
 	@Autowired
     private NotaFiscalVendaRepository notaFiscalVendaRepository;
+	
+	@Autowired
+	private NotaFiscalCompraService notaFiscalCompraService;
+	
+	
+	@ResponseBody
+	@PostMapping(value = "**/relatorioStatusCompra")
+	public ResponseEntity<List<ObjetoRelatorioStatusCompra>> relatorioStatusCompra
+	                      (@Valid @RequestBody ObjetoRelatorioStatusCompra objetoRelatorioStatusCompra) {
+		
+		List<ObjetoRelatorioStatusCompra> retorno = new ArrayList<ObjetoRelatorioStatusCompra>();
+		
+		retorno = notaFiscalCompraService.relatorioStatusVendaLojaVirtual(objetoRelatorioStatusCompra);
+		
+		return new  ResponseEntity<List<ObjetoRelatorioStatusCompra>>(retorno, HttpStatus.OK);
+		
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "relatorioProdCompraNotaFiscal")
+	public ResponseEntity<List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO>> relatorioProdCompraNotaFiscal
+	         (@Valid @RequestBody ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO objetoRequisicaoRelatorioProdCompraNotaFiscalDTO){
+
+		List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO> retorno =
+				 new ArrayList<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO>();
+		
+		retorno = notaFiscalCompraService.gerarRelatorioProdCompraNota(objetoRequisicaoRelatorioProdCompraNotaFiscalDTO);
+		
+		return new ResponseEntity<List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO>>(retorno, HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "relatorioProdAlertaEstoque")
+	public ResponseEntity<List<ObjetoRequisicaoRelatorioProdutoAlertaEstoque>> relatorioProdAlertaEstoque
+	         (@Valid @RequestBody ObjetoRequisicaoRelatorioProdutoAlertaEstoque objetoRequisicaoRelatorioProdutoAlertaEstoque){
+
+		List<ObjetoRequisicaoRelatorioProdutoAlertaEstoque> retorno =
+				 new ArrayList<ObjetoRequisicaoRelatorioProdutoAlertaEstoque>();
+		
+		retorno = notaFiscalCompraService.gerarRelatorioAlertaEstoque(objetoRequisicaoRelatorioProdutoAlertaEstoque);
+		
+		return new ResponseEntity<List<ObjetoRequisicaoRelatorioProdutoAlertaEstoque>>(retorno, HttpStatus.OK);
+	}
+	
 
 	@ResponseBody
 	@PostMapping(value = "**/salvarNotaFiscalCompra")
