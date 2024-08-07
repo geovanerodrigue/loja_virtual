@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 public class ObjetoRequisicaoRelatorioProdutoAlertaEstoque implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String nomeProduto = "";
 	@NotEmpty(message = "Informe a data inicial")
 	private String dataInicial = "";
@@ -22,8 +22,8 @@ public class ObjetoRequisicaoRelatorioProdutoAlertaEstoque implements Serializab
 	private String dataCompra = "";
 	private String qtdEstoque;
 	private String atdAlertaEstoque;
-	
-	
+
+
 	public String getQtdEstoque() {
 		return qtdEstoque;
 	}
@@ -96,7 +96,7 @@ public class ObjetoRequisicaoRelatorioProdutoAlertaEstoque implements Serializab
 	public void setDataCompra(String dataCompra) {
 		this.dataCompra = dataCompra;
 	}
-	
-	
-	
+
+
+
 }

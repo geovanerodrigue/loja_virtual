@@ -13,5 +13,5 @@ public interface CupDescontoRepository extends JpaRepository<CupDesconto, Long> 
 
 	@Query(value = "select c from CupDesconto c where c.empresa.id = ?1")
 	public List<CupDesconto> cupomDescontoPorEmpresa(Long idEmpresa);
-	
+
 }

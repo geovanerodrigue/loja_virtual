@@ -99,7 +99,7 @@ public class Produto  implements Serializable {
 	private MarcaProduto marcaProduto = new MarcaProduto();
 
 	@OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<ImagemProduto> imagens = new ArrayList<ImagemProduto>();
+	private List<ImagemProduto> imagens = new ArrayList<>();
 
 	public List<ImagemProduto> getImagens() {
 		return imagens;
@@ -260,10 +260,12 @@ public class Produto  implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if ((obj == null) || (getClass() != obj.getClass()))
+		}
+		if ((obj == null) || (getClass() != obj.getClass())) {
 			return false;
+		}
 		Produto other = (Produto) obj;
 		return Objects.equals(id, other.id);
 	}

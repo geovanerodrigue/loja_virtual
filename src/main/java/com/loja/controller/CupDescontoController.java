@@ -21,54 +21,54 @@ import com.loja.repository.CupDescontoRepository;
 
 @RestController
 public class CupDescontoController {
-	
+
 	@Autowired
 	private CupDescontoRepository cupDescontoRepository;
-	
+
 	@ResponseBody
 	@DeleteMapping(value = "**/deleteCupomDesc/{id}")
 	public ResponseEntity<CupDesconto> deletarCupomDesc(@PathVariable("id") Long id){
-		
+
 		cupDescontoRepository.deleteById(id);
-		
+
 		return new ResponseEntity("Cupom Removido", HttpStatus.OK);
 	}
-	
+
 	@ResponseBody
 	@GetMapping(value = "**/obterCupom/{id}")
 	public ResponseEntity<CupDesconto> obterCupom(@PathVariable("id") Long id) throws ExceptionMentoriaJava{
-		
+
 		CupDesconto cupDesc = cupDescontoRepository.findById(id).orElse(null);
-		
+
 		if(cupDesc == null) {
 			throw new ExceptionMentoriaJava("Não foi encontrado Cupom com o código: " + id);
 		}
-		
-		return new ResponseEntity<CupDesconto>(cupDesc, HttpStatus.OK);
+
+		return new ResponseEntity<>(cupDesc, HttpStatus.OK);
 	}
-	
+
 	@ResponseBody
 	@PostMapping(value = "**/salvarCupomDesc")
 	public ResponseEntity<CupDesconto> salvarCupomDesc(@RequestBody @Valid CupDesconto cupDesconto){
-		
+
 		CupDesconto cupDesconto2 = cupDescontoRepository.save(cupDesconto);
-		
-		return new ResponseEntity<CupDesconto>(cupDesconto2, HttpStatus.OK);
+
+		return new ResponseEntity<>(cupDesconto2, HttpStatus.OK);
 	}
-	
-	
+
+
 	@ResponseBody
 	@GetMapping(value = "**/listasCupomDesc/{idEmpresa}")
 	public ResponseEntity<List<CupDesconto>> listasCupomDesc(@PathVariable("idEmpresa")Long idEmpresa){
-		
-		return new ResponseEntity<List<CupDesconto>>(cupDescontoRepository.cupomDescontoPorEmpresa(idEmpresa), HttpStatus.OK);
+
+		return new ResponseEntity<>(cupDescontoRepository.cupomDescontoPorEmpresa(idEmpresa), HttpStatus.OK);
 	}
-	
+
 	@ResponseBody
 	@GetMapping(value = "**/listasCupomDesc")
 	public ResponseEntity<List<CupDesconto>> listasCupomDesc(){
-		
-		return new ResponseEntity<List<CupDesconto>>(cupDescontoRepository.findAll(), HttpStatus.OK);
+
+		return new ResponseEntity<>(cupDescontoRepository.findAll(), HttpStatus.OK);
 	}
 
 }

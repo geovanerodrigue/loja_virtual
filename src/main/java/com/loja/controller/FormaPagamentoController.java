@@ -33,22 +33,22 @@ public class FormaPagamentoController {
 
 		return new ResponseEntity<>(formaPagamento, HttpStatus.OK);
 	}
-	
-	
+
+
 	@ResponseBody
 	@GetMapping(value = "**/listaFormaPagamento/{idEmpresa}")
 	public ResponseEntity<List<FormaPagamento>> listaFormaPagamentoidEmpresa(@PathVariable(value = "idEmpresa")Long idEmpresa){
-	
-		return new ResponseEntity<List<FormaPagamento>>(formaPagamentoRepository.findAll(idEmpresa), HttpStatus.OK);
-		
+
+		return new ResponseEntity<>(formaPagamentoRepository.findAll(idEmpresa), HttpStatus.OK);
+
 	}
-	
+
 	@ResponseBody
 	@GetMapping(value = "**/listaFormaPagamento")
 	public ResponseEntity<List<FormaPagamento>> listaFormaPagamentp(){
-	
-		return new ResponseEntity<List<FormaPagamento>>(formaPagamentoRepository.findAll(), HttpStatus.OK);
-		
+
+		return new ResponseEntity<>(formaPagamentoRepository.findAll(), HttpStatus.OK);
+
 	}
 
 }

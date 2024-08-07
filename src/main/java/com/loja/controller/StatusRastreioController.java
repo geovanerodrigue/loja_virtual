@@ -25,7 +25,7 @@ public class StatusRastreioController {
 
 		List<StatusRastreio> statusRastreios = statusRastreioRepository.listaRastreioVenda(idVenda);
 
-		return new ResponseEntity<List<StatusRastreio>>(statusRastreios, HttpStatus.OK);
+		return new ResponseEntity<>(statusRastreios, HttpStatus.OK);
 	}
 
 }

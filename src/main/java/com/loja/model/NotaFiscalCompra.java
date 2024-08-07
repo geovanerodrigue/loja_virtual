@@ -165,10 +165,12 @@ public class NotaFiscalCompra implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if ((obj == null) || (getClass() != obj.getClass()))
+		}
+		if ((obj == null) || (getClass() != obj.getClass())) {
 			return false;
+		}
 		NotaFiscalCompra other = (NotaFiscalCompra) obj;
 		return Objects.equals(id, other.id);
 	}

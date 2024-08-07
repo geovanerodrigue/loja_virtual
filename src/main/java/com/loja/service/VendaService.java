@@ -17,27 +17,27 @@ import com.loja.repository.Vd_Cp_Loja_virt_repository;
 
 @Service
 public class VendaService {
-	
-	
+
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Autowired
 	private Vd_Cp_Loja_virt_repository vd_Cp_Loja_virt_repository;
-	
-	
+
+
 	public void exclusaoTotalVendaBanco2(Long idVenda) {
 		String sql = "begin; update vd_cp_loja_virt set excluido = true where id = " + idVenda +"; commit;";
-		jdbcTemplate.execute(sql);;
+		jdbcTemplate.execute(sql);
 	}
 
 	public void exclusaoTotalVendaBanco(Long idVenda) {
-		
-		String value = 
+
+		String value =
 		                  " begin;"
 		      			+ " UPDATE nota_fiscal_venda set venda_compra_loja_virt_id = null where venda_compra_loja_virt_id = "+idVenda+"; "
 		      			+ " delete from nota_fiscal_venda where venda_compra_loja_virt_id = "+idVenda+"; "
@@ -45,30 +45,30 @@ public class VendaService {
 		      			+ " delete from status_rastreio where venda_compra_loja_virt_id = "+idVenda+"; "
 		      			+ " delete from vd_cp_loja_virt where id = "+idVenda+"; "
 		      			+ " commit; ";
-		
+
 		jdbcTemplate.execute(value);
 	}
 
 	public void ativaRegistroVendaBanco(Long idVenda) {
 		String sql = "begin; update vd_cp_loja_virt set excluido = false where id = " + idVenda +"; commit;";
-		jdbcTemplate.execute(sql);;
-		
+		jdbcTemplate.execute(sql);
+
 	}
-	
-	
+
+
 	/*HQL (Hibernate) ou JPQL (JPA ou Spring Data)*/
 	public List<VendaCompraLojaVirtual> consultaVendaFaixaData(String data1, String data2) throws ParseException{
-		
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		Date date1 = dateFormat.parse(data1);
 		Date date2 = dateFormat.parse(data2);
-		
-		
+
+
 		return vd_Cp_Loja_virt_repository.consultaVendaFaixaData(date1, date2);
-		
+
 	}
-	
-	
-	
+
+
+
 }

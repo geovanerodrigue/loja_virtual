@@ -1,0 +1,29 @@
+
+/gera as etiquetas
+
+{
+    "orders": [
+        "9cb46f3a-cb00-4e7c-92cd-36259aa9b9fd"
+    [
+} 
+
+
+//retorno da geração de etiqueta
+
+{"9cb46f3a-cb00-4e7c-92cd-36259aa9b9fd":{"status":true,"message":"Envio gerado com sucesso"}}
+
+
+
+
+{ 
+     "mode": "private",
+     "orders": [
+        "9cb46f3a-cb00-4e7c-92cd-36259aa9b9fd" 
+     ]
+}
+
+//resultado da impressap da etiqueta
+
+{"url":"https:\/\/sandbox.melhorenvio.com.br\/imprimir\/BNyYGxFloMPk"}
+
+https:\\sandbox.melhorenvio.com.br\imprimir\BNyYGxFloMPk

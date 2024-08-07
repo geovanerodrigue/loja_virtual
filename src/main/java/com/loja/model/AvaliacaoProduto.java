@@ -106,10 +106,12 @@ public class AvaliacaoProduto implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if ((obj == null) || (getClass() != obj.getClass()))
+		}
+		if ((obj == null) || (getClass() != obj.getClass())) {
 			return false;
+		}
 		AvaliacaoProduto other = (AvaliacaoProduto) obj;
 		return Objects.equals(id, other.id);
 	}

@@ -8,6 +8,6 @@ import com.loja.model.ContaReceber;
 @Repository
 public interface ContaReceberRepository extends JpaRepository<ContaReceber, Long> {
 
-	
-	
+
+
 }

@@ -7,33 +7,33 @@ import javax.validation.constraints.NotEmpty;
 public class ObjetoRelatorioStatusCompra implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@NotEmpty(message = "Informe a data inicial")
 	private String dataInicial;
-	
+
 	@NotEmpty(message = "Informe a data final")
 	private String dataFinal;
 
 	private String codigoProduto ="";
-	
+
 	private String nomeProduto ="";
 
 	private String emailCliente ="";
-	
+
 	private String foneCliente ="";
-	
+
 	private String valorVendaProduto ="";
-	
+
 	private String codigoCliente ="";
 
 	private String nomeCliente ="";
-	
+
 	private String qtdEstoque ="";
-	
+
 	private String codigoVenda ="";
-	
+
 	private String statusVenda ="";
-	
+
 
 	public String getDataInicial() {
 		return dataInicial;

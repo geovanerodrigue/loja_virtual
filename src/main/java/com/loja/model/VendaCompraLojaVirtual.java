@@ -106,18 +106,18 @@ public class VendaCompraLojaVirtual implements Serializable {
 	@ManyToOne(targetEntity = PessoaJuridica.class)
 	@JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
 	private PessoaJuridica empresa;
-	
+
 	@NotNull(message = "Status da venda ou compra deve ser informado!")
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatusVendaLojaVirtual statusVendaLojaVirtual;
-	
+
 
 	@OneToMany(mappedBy = "vendaCompraLojaVirtual", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<ItemVendaLoja> itemVendaLojas = new ArrayList<ItemVendaLoja>();
+	private List<ItemVendaLoja> itemVendaLojas = new ArrayList<>();
 
 	private Boolean excluido = Boolean.FALSE;
-	
+
 
 	public Boolean getExcluido() {
 		return excluido;
@@ -254,18 +254,20 @@ public class VendaCompraLojaVirtual implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if ((obj == null) || (getClass() != obj.getClass())) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		VendaCompraLojaVirtual other = (VendaCompraLojaVirtual) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		return true;
 	}
 

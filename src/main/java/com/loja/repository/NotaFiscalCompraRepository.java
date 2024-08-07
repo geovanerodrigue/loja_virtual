@@ -22,7 +22,6 @@ public interface NotaFiscalCompraRepository extends JpaRepository<NotaFiscalComp
 	@Query(nativeQuery = true, value = "select count(1) > 0 from nota_fiscal_compra where upper(descricao_obs) like %?1% ")
 	boolean existeNotaComDescricao(String desc);
 
-
 	@Query("select a from NotaFiscalCompra a where a.pessoa.id = ?1")
 	List<NotaFiscalCompra> buscaNotaPorPessoa(Long idPessoa);
 

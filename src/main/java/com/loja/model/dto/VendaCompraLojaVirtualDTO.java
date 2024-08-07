@@ -24,7 +24,7 @@ public class VendaCompraLojaVirtualDTO {
 
 	private BigDecimal valorFrete;
 
-	private List<ItemVendaDTO> itemVendaLoja = new ArrayList<ItemVendaDTO>();
+	private List<ItemVendaDTO> itemVendaLoja = new ArrayList<>();
 
 	public void setItemVendaLoja(List<ItemVendaDTO> itemVendaLoja) {
 		this.itemVendaLoja = itemVendaLoja;

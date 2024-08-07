@@ -15,5 +15,5 @@ public interface FormaPagamentoRepository extends JpaRepository<FormaPagamento, 
 
 	@Query(value = "select f from FormaPagamento f where f.empresa.id = ?1")
 	List<FormaPagamento> findAll(Long idEmpresa);
-	
+
 }
