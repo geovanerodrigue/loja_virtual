@@ -117,6 +117,14 @@ public class VendaCompraLojaVirtual implements Serializable {
 	private List<ItemVendaLoja> itemVendaLojas = new ArrayList<>();
 
 	private Boolean excluido = Boolean.FALSE;
+	
+	@Column(name = "codigo_etiqueta")
+	private String codigoEtiqueta;
+	
+	@Column(name = "url_imprime_etiqueta")
+	private String urlImprimeEtiqueta;
+	
+	private String servicoTransportadora;
 
 
 	public Boolean getExcluido() {
@@ -245,6 +253,38 @@ public class VendaCompraLojaVirtual implements Serializable {
 
 	public void setDataEntrega(Date dataEntrega) {
 		this.dataEntrega = dataEntrega;
+	}
+
+	public String getCodigoEtiqueta() {
+		return codigoEtiqueta;
+	}
+
+	public void setCodigoEtiqueta(String codigoEtiqueta) {
+		this.codigoEtiqueta = codigoEtiqueta;
+	}
+
+	public String getUrlImprimeEtiqueta() {
+		return urlImprimeEtiqueta;
+	}
+
+	public void setUrlImprimeEtiqueta(String urlImprimeEtiqueta) {
+		this.urlImprimeEtiqueta = urlImprimeEtiqueta;
+	}
+
+	public StatusVendaLojaVirtual getStatusVendaLojaVirtual() {
+		return statusVendaLojaVirtual;
+	}
+
+	public void setStatusVendaLojaVirtual(StatusVendaLojaVirtual statusVendaLojaVirtual) {
+		this.statusVendaLojaVirtual = statusVendaLojaVirtual;
+	}
+
+	public String getServicoTransportadora() {
+		return servicoTransportadora;
+	}
+
+	public void setServicoTransportadora(String servicoTransportadora) {
+		this.servicoTransportadora = servicoTransportadora;
 	}
 
 	@Override

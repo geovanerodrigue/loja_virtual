@@ -21,6 +21,38 @@ public class TesteAPIMelhorEnvio {
 
 		
 		
+		OkHttpClient client = new OkHttpClient();
+
+		MediaType mediaType = MediaType.parse("application/json");
+		RequestBody body = RequestBody.create(mediaType, "{\"orders\":[\"9cb46f3a-cb00-4e7c-92cd-36259aa9b9fd\"]}");
+		Request request = new Request.Builder()
+		  .url(ApiTokenIntegracao.URL_MELHOR_ENVIO_SAND_BOX + "api/v2/me/shipment/tracking")
+		  .post(body)
+		  .addHeader("Accept", "application/json")
+		  .addHeader("Content-type", "application/json")
+		  .addHeader("Authorization", "Bearer "+ ApiTokenIntegracao.TOKEN_MELHOR_ENVIO_SAND_BOX)
+		  .addHeader("User-Agent", "geovane.net@live.com")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		
+		
+		
+		
+		
+	/**	
+		OkHttpClient client = new OkHttpClient();
+
+		Request request = new Request.Builder()
+		  .url(ApiTokenIntegracao.URL_MELHOR_ENVIO_SAND_BOX + "api/v2/me/shipment/companies")
+		  .get()
+		  .addHeader("User-Agent", "geovane.net@live.com")
+		  .addHeader("accept", "application/json")
+		  .addHeader("authorization", "Bearer token")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		
 		
     //INSERE AS ETIQUETAS DE FRETE		
 	/**
@@ -80,21 +112,22 @@ public class TesteAPIMelhorEnvio {
 		Response response = client.newCall(request).execute();	
 	**/	
 
-		
-		OkHttpClient client = new OkHttpClient();
-
-		MediaType mediaType = MediaType.parse("application/json");
-		RequestBody body = RequestBody.create(mediaType, "{\"mode\":\"\",\"orders\":[\"9cb46f3a-cb00-4e7c-92cd-36259aa9b9fd\"]}");
-		Request request = new Request.Builder()
-		  .url(ApiTokenIntegracao.URL_MELHOR_ENVIO_SAND_BOX + "api/v2/me/shipment/print")
-		  .post(body)
-		  .addHeader("Accept", "application/json")
-		  .addHeader("Content-Type", "application/json")
-		  .addHeader("Authorization", "Bearer " + ApiTokenIntegracao.TOKEN_MELHOR_ENVIO_SAND_BOX)
-		  .addHeader("User-Agent", "geovane.net@live.com")
-		  .build();
-
-		Response response = client.newCall(request).execute();
+	/*
+	 * OkHttpClient client = new OkHttpClient();
+	 * 
+	 * MediaType mediaType = MediaType.parse("application/json"); RequestBody body =
+	 * RequestBody.create(mediaType,
+	 * "{\"mode\":\"\",\"orders\":[\"9cb46f3a-cb00-4e7c-92cd-36259aa9b9fd\"]}");
+	 * Request request = new Request.Builder()
+	 * .url(ApiTokenIntegracao.URL_MELHOR_ENVIO_SAND_BOX +
+	 * "api/v2/me/shipment/print") .post(body) .addHeader("Accept",
+	 * "application/json") .addHeader("Content-Type", "application/json")
+	 * .addHeader("Authorization", "Bearer " +
+	 * ApiTokenIntegracao.TOKEN_MELHOR_ENVIO_SAND_BOX) .addHeader("User-Agent",
+	 * "geovane.net@live.com") .build();
+	 * 
+	 * Response response = client.newCall(request).execute();
+	 */
 		
 			
 		
