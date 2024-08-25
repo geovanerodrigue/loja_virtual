@@ -40,6 +40,7 @@ import com.loja.model.dto.ConsultaFreteDTO;
 import com.loja.model.dto.EmpresaTransporteDTO;
 import com.loja.model.dto.EnvioEtiquetaDTO;
 import com.loja.model.dto.ItemVendaDTO;
+import com.loja.model.dto.ObjetoPostCarneJuno;
 import com.loja.model.dto.ProductsEnvioEtiquetaDTO;
 import com.loja.model.dto.TagsEnvioDTO;
 import com.loja.model.dto.VendaCompraLojaVirtualDTO;
@@ -49,6 +50,7 @@ import com.loja.repository.EnderecoRepository;
 import com.loja.repository.NotaFiscalVendaRepository;
 import com.loja.repository.StatusRastreioRepository;
 import com.loja.repository.Vd_Cp_Loja_virt_repository;
+import com.loja.service.ServiceJunoBoleto;
 import com.loja.service.ServiceSendEmail;
 import com.loja.service.VendaService;
 
@@ -86,6 +88,9 @@ public class Vd_Cp_loja_Virt_Controller {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private ServiceJunoBoleto serviceJunoBoleto;
 
 	@ResponseBody
 	@PostMapping(value = "**/salvarVendaLoja")
@@ -574,6 +579,8 @@ public class Vd_Cp_loja_Virt_Controller {
 			
 			okhttp3.Response response = client.newCall(request).execute();
 			
+			System.out.println(response.message());
+			
 			String respostaJson = response.body().string();
 			
 			if(respostaJson.contains("error")) {
@@ -598,7 +605,7 @@ public class Vd_Cp_loja_Virt_Controller {
 
 			//salvando o codigo da etiqueta
 			
-			jdbcTemplate.execute("begin; update vd_cp_loja_virt set codigo_etiqueta = '"+idEtiqueta+"' where id = '"+compraLojaVirtual.getId()+"' ;commit;");
+			jdbcTemplate.execute("begin; update vd_cp_loja_virt set codigo_etiqueta = '"+idEtiqueta+"' where id = "+compraLojaVirtual.getId()+" ;commit;");
           //vd_Cp_Loja_virt_repository.updateEtiqueta(idEtiqueta, compraLojaVirtual.getId());
 		
           
@@ -725,6 +732,20 @@ public class Vd_Cp_loja_Virt_Controller {
 			
 		
 		return new ResponseEntity<String>("Sucesso!", HttpStatus.OK);
+	}
+	
+	
+	@ResponseBody
+	@PostMapping(value = "**/gerarBoletoPix")
+	public ResponseEntity<String> gerarBoletoPix(@RequestBody @Valid ObjetoPostCarneJuno objetoPostCarneJuno) throws Exception{
+		return  new ResponseEntity<String>(serviceJunoBoleto.gerarCarneApi(objetoPostCarneJuno), HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "**/cancelarBoletoPix")
+	public ResponseEntity<String> cancelarBoletoPix(@RequestBody @Valid String code) throws Exception{
+		
+		return new ResponseEntity<String>(serviceJunoBoleto.cancelarBoleto(code), HttpStatus.OK);
 	}
 
 
