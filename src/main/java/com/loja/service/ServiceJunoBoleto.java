@@ -28,6 +28,7 @@ import com.loja.model.VendaCompraLojaVirtual;
 import com.loja.model.dto.BoletoGreadoApiJuno;
 import com.loja.model.dto.CobrancaJunoAPI;
 import com.loja.model.dto.ConteudoBoletoJuno;
+import com.loja.model.dto.CriarWebHook;
 import com.loja.model.dto.ObjetoPostCarneJuno;
 import com.loja.repository.AccesTokenJunoRepository;
 import com.loja.repository.BoletoJunoRepository;
@@ -243,6 +244,30 @@ public class ServiceJunoBoleto implements Serializable {
 	}
 
 
+	
+	public String criarWebHook(CriarWebHook criarWebHook) throws Exception {
+		
+	    AccesTokenJunoAPI accessTokenJunoAPI = this.obterTokenApiJuno();
+		
+		Client client = new HostIgnoringCliente("https://api.juno.com.br/").hostIgnoringCliente();
+		WebResource webResource = client.resource("https://api.juno.com.br/notifications/webhooks");
+		
+		String json = new ObjectMapper().writeValueAsString(criarWebHook);
+		
+		ClientResponse clientResponse = webResource
+				.accept("application/json;charset=UTF-8")
+				.header("Content-Type", "application/json")
+				.header("X-API-Version", 2)
+				.header("X-Resource-Token", ApiTokenIntegracao.TOKEN_PRIVATE_JUNO)
+				.header("Authorization", "Bearer " + accessTokenJunoAPI.getAccess_token())
+				.post(ClientResponse.class, json);
+		
+		 String resposta = clientResponse.getEntity(String.class);
+		 clientResponse.close();
+		
+		return resposta;
+		
+	}
 
 
 }
